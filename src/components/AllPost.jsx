@@ -23,7 +23,7 @@ function AllPost() {
       console.log(data);
       // setSetUrl(WhoCreatedPost)
       const arrayDataItems = data?.map(el => 
-        <div className='lg:p-8 lg:text-lg' key={el.id}>
+        <div className='lg:p-8 lg:text-lg ' key={el.id}>
         Created User :- {el.WhoCreatedPost}
           {/* <span> Description :- {el.imageUrl}</span> <br /> */}
          <img className='h-96' src={"https://ipfs.io/ipfs/"+el.imageUrl} alt="" />
@@ -33,9 +33,9 @@ function AllPost() {
       // setSetUrl(data)
     
   return (
-    <div className='flex  items-center justify-center flex-col'>
+    <div className='flex  items-center justify-center flex-col bg-gray-200'>
     <div className='text-xl font-bold border-b border-black '>All  Post</div>
-    <div>{arrayDataItems}</div>
+    <div className=''>{arrayDataItems}</div>
     </div>
   )
 }

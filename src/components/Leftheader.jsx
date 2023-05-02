@@ -4,7 +4,7 @@ import CreateUser from './CreateUser'
 function Leftheader() {
   return (
     <>
-    <div className=' p-2'>
+    <div className='  '>
     <CreateUser/>
     </div>
     </>

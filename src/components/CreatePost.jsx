@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Web3Storage } from 'web3.storage'
-import { usePrepareContractWrite, useContractWrite } from 'wagmi'
+import { ToastContainer, Zoom, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { usePrepareContractWrite, useContractWrite,useWaitForTransaction } from 'wagmi'
 import { CONTRACT_ABI, CONTRACT_ADDRESS } from '../../contract/details';
 function CreatePost() {
     const [file, setFile] = useState(null);
@@ -29,7 +31,10 @@ const captureFile = async (e) => {
     functionName: 'createPost',
     args:[content,fileurl],
     onError(error) {
-      console.log('Error', error)
+      notifyError(error);
+    },
+    onSuccess(data) {
+      notify(data);
     },
   })
   const { write } = useContractWrite(config)
@@ -45,16 +50,50 @@ const uploadedFile = await client.put(file, {
   write?.();
 }
 
-
+const notify = () => toast.success(' Post is Created', {
+  position: "top-center",
+  autoClose: 5000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "colored",
+  transition:Zoom
+  });
+  const notifyError=()=>toast.error(' Post is not Created', {
+    position: "top-center",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "colored",
+    transition:Zoom
+    });
   return (
     <div>
-        <div className='space-y-4 py-2 flex flex-col items-center justify-center'>
+        <div className='space-y-4 py-2 flex flex-col items-center justify-center bg-gray-200'>
       <div className='text-lg font-bold border-b border-black'>Create Post</div>
             <input type="file" onChange={(e)=>captureFile(e)}  />
             <input type="text" placeholder='enter content' className='border border-gray-400 px-1 py-2 rounded-xl' onChange={(e)=>setContent(e.target.value)} />
-            <button className='bg-gray-600 text-white px-1 py-2 rounded-xl' onClick={(e)=>uploadtoWeb3Storage(e)}>click</button>
+            <button className='bg-gray-600 text-white px-1 py-2 rounded-xl mb-7' onClick={(e)=>uploadtoWeb3Storage(e)}>click</button>
             {/* <img src={"/"} alt="notjimh" /> */}
         </div>
+       
+        <ToastContainer
+position="top-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="colored"
+/>
     </div>
   )
 }
