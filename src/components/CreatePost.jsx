@@ -30,9 +30,6 @@ const captureFile = async (e) => {
     abi: CONTRACT_ABI,
     functionName: 'createPost',
     args:[content,fileurl],
-    onError(error) {
-      notifyError(error);
-    },
     onSuccess(data) {
       notify(data);
     },
