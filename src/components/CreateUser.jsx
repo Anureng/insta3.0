@@ -13,15 +13,10 @@ function CreateUser() {
         abi: CONTRACT_ABI,
         functionName: "CreateUser",
         args:[name],
-        onError(error) {
-          notifyError(error);
-        },
-        onSuccess(data) {
-          notify(data);
-        },
+     
         
       })
-      const notify = () => toast.success(' Post is Created', {
+      const notify = () => toast.success(' User is Created', {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -32,7 +27,7 @@ function CreateUser() {
         theme: "colored",
         transition:Zoom
         });
-        const notifyError=()=>toast.error(' Post is not Created', {
+        const notifyError=()=>toast.error(' user is not Created', {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -61,7 +56,7 @@ Create  account
 
     <input type="text  " className="border border-gray-400 px-2 py-1 rounded-xl"  onChange={(e)=>setName(e.target.value)}  placeholder='enter your name' />
    <Link href="/allPost">
-   <button className=' ml-10 text-white cursor-pointer bg-gray-600 px-2 py-1 rounded-xl' disabled={!write} onClick={() => write?.()}>
+  <button className=' ml-10 text-white cursor-pointer bg-gray-600 px-2 py-1 rounded-xl' disabled={!write} onClick={() => {write?.() , notify()}}>
       Click
     </button>   
    </Link>
